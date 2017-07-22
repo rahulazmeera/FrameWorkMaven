@@ -118,7 +118,7 @@ public class TestingJenkins {
 		    File srcFile=((TakesScreenshot)driver).getScreenshotAs(OutputType.FILE);
 		    //FileUtils.copyFile(srcFiler, new File(outputlocation+ "appImage" + ".png"));
 		    
-		    FileUtils.copyFile(srcFile, new File("/home/rahul/Desktop/appImage.png"));
+		   // FileUtils.copyFile(srcFile, new File("/home/rahul/Desktop/appImlllllage.png"));
 		    
 		   /* //after successful  registration
 		    driver.findElementById("com.sei.android:id/navLogo").click();
@@ -138,7 +138,7 @@ public class TestingJenkins {
 		    File sFile=((TakesScreenshot)driver).getScreenshotAs(OutputType.FILE);
 		    //FileUtils.copyFile(srcFiler, new File(outputlocation+ "appImage" + ".png"));
 		    
-		    FileUtils.copyFile(sFile, new File("/home/rahul/Desktop/appImage2.png"));
+		  //  FileUtils.copyFile(sFile, new File("/home/rahul/Desktop/appImagkkk.png"));
 		   
 		    //clicking on the side header from menu
 		    driver.findElementByAndroidUIAutomator("new UiSelector().text(\"Feedback\")").click();
