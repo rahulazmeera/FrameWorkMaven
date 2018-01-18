@@ -4,19 +4,31 @@ import java.net.URL;
 import java.util.concurrent.TimeUnit;
 
 import org.apache.commons.io.FileUtils;
-import org.junit.Test;
+
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
+import org.openqa.selenium.interactions.touch.TouchActions;
 import org.openqa.selenium.remote.DesiredCapabilities;
+import org.testng.annotations.BeforeSuite;
+import org.testng.annotations.BeforeTest;
+import org.testng.annotations.Test;
 
+import io.appium.java_client.MobileElement;
+import io.appium.java_client.TouchAction;
 import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.remote.MobileCapabilityType;
 import io.appium.java_client.remote.MobilePlatform;
 
 public class TestingJenkins {
 	
-		@Test
+     
+	  public static AndroidDriver driver;
+		
+	  
+	    @BeforeTest
 		public void hello() throws IOException, InterruptedException{
+			//App launch 
+			
 			 DesiredCapabilities capabiliti=new DesiredCapabilities();
 			 
 		     capabiliti.setCapability(MobileCapabilityType.PLATFORM_NAME, MobilePlatform.ANDROID);
@@ -24,184 +36,224 @@ public class TestingJenkins {
 		     capabiliti.setCapability(MobileCapabilityType.DEVICE_NAME, "Android device");
 		     capabiliti.setCapability(MobileCapabilityType.NEW_COMMAND_TIMEOUT, "100");
 
-		    capabiliti.setCapability(MobileCapabilityType.APP_PACKAGE, "com.sei.android");
-		    capabiliti.setCapability(MobileCapabilityType.APP_ACTIVITY, "com.sei.android.views.MainActivity");
+		    capabiliti.setCapability(MobileCapabilityType.APP_PACKAGE, "com.seven.eleven.phoenix");
+		    capabiliti.setCapability(MobileCapabilityType.APP_ACTIVITY, "com.seven.eleven.phoenix.ui.SplashActivity");
 		
-		    AndroidDriver driver=new AndroidDriver(new URL("http://127.0.0.1:4723/wd/hub"), capabiliti);
-		
-		    
-		    //to make register happen 
-//		    driver.findElementById("com.sei.android:id/invertedButtonStyle1").click();
-//		    driver.findElementById("com.sei.android:id/txtFirstName").sendKeys("Harish");
-//		    driver.findElementById("com.sei.android:id/txtLastName").sendKeys("Kumar");
-//		    driver.findElementById("com.sei.android:id/txtEmail").sendKeys("harish.kumarqa5@gmail.com");
-//		    driver.findElementById("com.sei.android:id/txtVerifyEmail").sendKeys("harish.kumarqa5@gmail.com");
-//		    driver.scrollTo("Country");
-//		    Thread.sleep(3000);
-//		    driver.findElementById("com.sei.android:id/txtPassword").sendKeys("azmeera1993");
-//		    driver.findElementById("com.sei.android:id/txtVerifyPassword").sendKeys("azmeera1993");
-//		    
-//		    Thread.sleep(2000);
-		    
-		    //for swiping up and down direction 
-		    
-		    
-		    
-		   // driver.scrollTo("Submit");
-		    
-		   
-		    
-		    
-		    
-		    
-//		    //for handling android native key event 
-//		    driver.sendKeyEvent(AndroidKeyCode.BACK);
-//		    
-//		    
-//		   
-//		    
-//		    //for tapping action Touch Action.
-//		    
-//	        MobileElement ele= (MobileElement)driver.findElementById("com.sei.android:id/txtBirthday");
-////		    
-//		    ele.swipe(SwipeElementDirection.UP, 4000);
-//	   	    
-		     
-		    
-		  /*  
-		    
-		    TouchAction t=new TouchAction(driver);
-		               t.tap(ele).perform();
-		    
-		               
-		     for(int i=0;i<180;i++){
-		       
-		    	 driver.findElementById("android:id/prev").click();   
-		    
-		     }
-		               
-		     
-		    driver.findElementByAndroidUIAutomator("new UiSelector().text(\"11\")").click();
-		     
-		  
-		    driver.findElementById("android:id/button1").click();
-		               
-		               
-		               
+		    driver=new AndroidDriver(new URL("http://127.0.0.1:4723/wd/hub"), capabiliti);
 		 
-		    driver.findElementById("com.sei.android:id/chkAcceptTermsAndConditions").click();
-		    driver.findElementById("com.sei.android:id/navRightText").click();
-		    */
+		}
 		    
-	        
-	        //for sign in operation to be done.
-		    driver.findElementById("com.sei.android:id/solidButtonStyle1").click();
+		    /***Test start from Here ***/
+	    
+	   
+	        @Test(priority=1)
+		    public void skipbuttonPresent(){
 		    
-		    //in the sign in page 
-	        driver.findElementById("com.sei.android:id/txtEmail").sendKeys("rahulazmeera@gmail.com");
-	        driver.findElementById("com.sei.android:id/txtPassword").sendKeys("azmeera1993");
-	        
-	        //click the submit button 
-	        driver.findElementById("com.sei.android:id/navRightText").click();
-	        
-	        Thread.sleep(3000);
-	        
-	        String so= driver.getPageSource();
+		    //click the skip button present
+		    driver.findElementById("com.seven.eleven.phoenix:id/btn_skip").click();
 		    
-		    System.out.print(so);
-	        
-	        
-		    //method to take screenshot 
-		   // String outputlocation="/home/rahul/Desktop/UntitledFolder";
+		    System.out.println("first page launched successfully ");
 		    
-		    Thread.sleep(3000);
-		    File srcFile=((TakesScreenshot)driver).getScreenshotAs(OutputType.FILE);
-		    //FileUtils.copyFile(srcFiler, new File(outputlocation+ "appImage" + ".png"));
+		    }
 		    
-		   // FileUtils.copyFile(srcFile, new File("/home/rahul/Desktop/appImlllllage.png"));
+		    @Test(priority=2)
+		    public void KababMenuPresent(){
+		    //click the kabab menu button
+		    driver.findElementById("com.seven.eleven.phoenix:id/btn_overflow").click();
+		    System.out.println("Kabab menu present and able to click");
+		    }
 		    
-		   /* //after successful  registration
-		    driver.findElementById("com.sei.android:id/navLogo").click();
+		    @Test(priority=3)
+		    public void helpButtonPresent(){
+		    //click the help button present and close the button
+		    driver.findElementById("com.seven.eleven.phoenix:id/btn_help").click();
+		    driver.findElementById("com.seven.eleven.phoenix:id/close_btn").click();
 		    
-		    Thread.sleep(3000);
-		    File srFile=((TakesScreenshot)driver).getScreenshotAs(OutputType.FILE);
-		    //FileUtils.copyFile(srcFiler, new File(outputlocation+ "appImage" + ".png"));
+		    }
 		    
-		    FileUtils.copyFile(srFile, new File("/home/rahul/Desktop/appImage1.png"));   */
+		    @Test(priority=4)
+		    public void sign_inButtonPresent(){
 		    
-		    //after looged in to the app
-		    driver.findElementById("com.sei.android:id/navMenuIcon").click();
+		    //click the sign in button and close 
+		    driver.findElementById("com.seven.eleven.phoenix:id/btn_sign_in").click();
+		    driver.findElementById("com.seven.eleven.phoenix:id/close_btn").click();
+		     System.out.print("Sign in Button working");
+		    }
 		    
-		    Thread.sleep(3000);
+		    @Test(priority=5)
+		    public void StoreLocatPresent(){
 		    
-		    
-		    File sFile=((TakesScreenshot)driver).getScreenshotAs(OutputType.FILE);
-		    //FileUtils.copyFile(srcFiler, new File(outputlocation+ "appImage" + ".png"));
-		    
-		  //  FileUtils.copyFile(sFile, new File("/home/rahul/Desktop/appImagkkk.png"));
+		    //click the store locator button. 
+		    driver.findElementById("com.seven.eleven.phoenix:id/btn_store_locator").click();
+		   // driver.findElementById("com.seven.eleven.phoenix:id/close_btn").click();
 		   
-		    //clicking on the side header from menu
-		    driver.findElementByAndroidUIAutomator("new UiSelector().text(\"Feedback\")").click();
+		    
+		    //skip mode
+		   try{
+		    	
+		    	driver.findElementById("com.seven.eleven.phoenix:id/btn_skip").click();
+		    }
+		    catch(Exception e){
+	          e.printStackTrace();
+		    }
+		    
+			//driver.findElementByName("Skip this for now").click();
+			
+	    	//System.out.println("Clicked by name");
+		    
+		    //close the button 
+		    driver.findElementById("com.seven.eleven.phoenix:id/close_btn").click();
 		    
 		    
-		    //clicking the inside of the app 
-		    driver.findElementByAndroidUIAutomator("new UiSelector().text(\"Compliment\")").click();
-		    //next page clicking 
-		    driver.findElementByAndroidUIAutomator("new UiSelector().text(\"Product Quality\")").click();
+		    }
 		    
+		    @Test(priority=6)
+		    public void signIn() throws InterruptedException{
 		    
-		    //clicking on the starts
-		    driver.findElementById("com.sei.android:id/lblStar1").click();
-		    driver.findElementById("com.sei.android:id/lblStar2").click();
-		    driver.findElementById("com.sei.android:id/lblStar3").click();
-		    driver.findElementById("com.sei.android:id/lblStar4").click();
-	        
-		    //entering in the text box 
-		    driver.findElementById("com.sei.android:id/txtAnswer").sendKeys("I love this app !");
+		    //sign in user flow on the menu button screen
+		    //click sign in
+		    driver.findElementById("com.seven.eleven.phoenix:id/btn_sign_in").click();
 		    
-		    //next page to locate stores
-	        driver.findElementById("com.sei.android:id/navRightText").click();
-	        
-	        //feedback 
-	        
-	        driver.findElementById("com.sei.android:id/solidButtonStyle3Title").click();
-	        
-	        //to find address
-	        driver.findElementById("com.sei.android:id/txtAddress").sendKeys("75006");
-	        
-	        Thread.sleep(3000);
-	        
-	        driver.findElementById("com.sei.android:id/lblFind").click();
-	        
-	        driver.manage().timeouts().implicitlyWait(6, TimeUnit.SECONDS);
-	        
-	        //selecting the store
-	        
-	        driver.scrollTo("18078").click();
-	         
-	        //contacting way
-	        
-	         driver.findElementByAndroidUIAutomator("new Uiselector().text(\"Yes, by email\")").click();
-	         
-	        
-	        
-	        driver.findElementByAndroidUIAutomator("new UiSelector().text(\"Enter your first name here.\")").sendKeys("Rahul");
-	        
-	        driver.findElementByAndroidUIAutomator("new UiSelector().text(\"Enter your last name here.\")").sendKeys("azmeer");
+		    System.out.println("sign in button present");
+		    //enter email
+		    driver.findElementById("com.seven.eleven.phoenix:id/email").sendKeys("trainingmode@7-11.com");
+		    System.out.println("Successfully entered Email");
+		    //enter password
+		    driver.findElementById("com.seven.eleven.phoenix:id/password").sendKeys("@Seven11");
+		    System.out.println("Successfully entered Password");
+		    
+		    //enter sign in 
+		    driver.findElementById("com.seven.eleven.phoenix:id/sign_in_btn").click();
+		    System.out.println("Successfully signed in");
+		    
+		   
+		    
+		    }
+		    
 
-	        driver.findElementByAndroidUIAutomator("new UiSelector().text(\"Enter your email address here.\")").sendKeys("rahulazmeera@gmail.com");
-	        
-	        //navigate previous page
-		    driver.findElementById("com.sei.android:id/navLeftText").click();
+		    @Test(priority=7)
+		    public void OrderButtonPresent() throws InterruptedException{
+		    Thread.sleep(5000);
+		    //Orders Button 
+		    driver.findElementById("com.seven.eleven.phoenix:id/btn_orders").click();
+		    String s= driver.getPageSource();
+		    System.out.println(s);
+		    Thread.sleep(3000);
+		    TouchAction a=new TouchAction(driver);
+		   // a.press(990, 157);
+		      a.tap(990, 157).perform();
+		    
+	         System.out.println("orders button present"); 
+		      
+		   
+		    }
+		    
+		    @Test(priority=8)
+		    public void StoreLocatorPresent(){
+		    //Store Locator Button 
+		    driver.findElementById("com.seven.eleven.phoenix:id/btn_store_locator").click();
+		    System.out.println("StoreLocatorPresent Success");
+             try{
+		    	
+		    	driver.findElementById("com.seven.eleven.phoenix:id/btn_skip").click();
+		     }
+		     catch(Exception e){
+	          e.printStackTrace();
+		     }
+             driver.findElementById("com.seven.eleven.phoenix:id/close_btn").click();
+		    
+             
+             
+		    }
+		    
+		    @Test(priority=9)
+		    public void TermsAndConditionsPresent() throws InterruptedException{
+		    
+		    //Terms and Conditions
+		    driver.findElementById("com.seven.eleven.phoenix:id/btn_terms_conditions").click();
+		    Thread.sleep(5000);
+		    TouchAction a2=new TouchAction(driver);
+			  
+		      a2.tap(59, 200).perform();
+		      
+		      System.out.println("Terms and Conditions present");
+		  //  driver.findElementById("com.seven.eleven.phoenix:id/backarrow").click();
+		    }
+		    
+		    @Test(priority=10)
+		    public void PrivacyPolicyPresent() throws InterruptedException{
+		    //Privacy Policy
+		    driver.findElementById("com.seven.eleven.phoenix:id/btn_privacy_policy").click();
+		    Thread.sleep(5000);
+		    TouchAction a1=new TouchAction(driver);
+			  
+			      a1.tap(59, 200).perform();
+			      
+		   System.out.println("Privacy Policy Present");	      
+		   // driver.findElementById("com.seven.eleven.phoenix:id/backarrow").click();
+		    }
 		    
 		    
-		   String s= driver.getPageSource();
+		    @Test(priority=11)
+		    public void HelpButtonPresent() throws InterruptedException{
 		    
-		    System.out.print(s);
+		    //validating Help
+		    driver.findElementById("com.seven.eleven.phoenix:id/btn_help").click();
+		    Thread.sleep(3000);
+		    driver.findElementById("com.seven.eleven.phoenix:id/close_btn").click();
+		    
+		    System.out.println("help Button Present");
+		    }
+		    
+		    
+		    @Test(priority=12)
+		    public void ProfileLinkPresent() throws InterruptedException{
+		    //profile link validation
+		    driver.findElementById("com.seven.eleven.phoenix:id/btn_profile").click();
+		    Thread.sleep(3000);
+		    driver.findElementById("com.seven.eleven.phoenix:id/close_btn").click();
+		    
+		    System.out.println("Profile link present");
+		    
+		    }
+		    
+		    @Test(priority=13)
+		    public void ValletButtonPresent() throws InterruptedException{
+		   //wallet button 
+		    driver.findElementById("com.seven.eleven.phoenix:id/btn_wallet").click();
+		    Thread.sleep(5000);
+		    
+		    if(driver.findElementsById("com.seven.eleven.phoenix:id/close_btn").size()>1){
+            driver.findElementById("com.seven.eleven.phoenix:id/close_btn").click();
+		    } else
+		      {
+		    	  TouchAction a3=new TouchAction(driver);
+				   // a.press(990, 157);
+				      a3.tap(990, 157).perform();
+		    	
+		      }
+		    
+		    System.out.println("Vallet Button is present");
+		    	
+		    }
+		    
+		    
+		    @Test(priority=14)
+		    public void SignOut() throws InterruptedException{
+		    //Sign Out
+		    driver.findElementById("com.seven.eleven.phoenix:id/btn_sign_out").click();
+		    Thread.sleep(3000);
+		    driver.findElementById("com.seven.eleven.phoenix:id/ok_btn").click();
+		    System.out.println("Successfully logged Out of the app");  
+		    }
+		    
+		    
+		    
 	}
+
 		
 	
 
 	
 	
-}
+
